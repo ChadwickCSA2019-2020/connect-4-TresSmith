@@ -1,6 +1,10 @@
 import java.util.Random;
 /**
  * Describe your basic strategy here.
+ * Go first
+ * go center
+ * 
+ * 
  * @author <your Github username>
  *
  */
@@ -40,9 +44,24 @@ public class MyAgent extends Agent {
    * <p>If an invalid move is made, the game engine will announce it and the game will be ended.</p>
    *
    */
-  public void move() {
+  public void move() {	 
+	  //check where to move
+	  
+	
+	 moveOnColumn(3);
+//	 if(iCanWin()==) {
+//		 
+//		 
+//		 
+//	 }
 
+	 
+		 
   }
+	  
+	  
+	  
+  
 
   /**
    * Drops a token into a particular column so that it will fall to the bottom of the column.
@@ -50,18 +69,23 @@ public class MyAgent extends Agent {
    *
    * @param columnNumber The column into which to drop the token.
    */
-  public void moveOnColumn(int columnNumber) {
+  public void moveOnColumn(int columnNumber) 
+  {
     // Find the top empty slot in the column
     // If the column is full, lowestEmptySlot will be -1
     int lowestEmptySlotIndex = getLowestEmptyIndex(myGame.getColumn(columnNumber));
     // if the column is not full
-    if (lowestEmptySlotIndex > -1) {
+    if (lowestEmptySlotIndex > -1) 
+    {
       // get the slot in this column at this index
       Connect4Slot lowestEmptySlot = myGame.getColumn(columnNumber).getSlot(lowestEmptySlotIndex);
       // If the current agent is the Red player...
-      if (iAmRed) {
+      if (iAmRed) 
+      {
         lowestEmptySlot.addRed(); // Place a red token into the empty slot
-      } else {
+      } 
+      else 
+      {
         lowestEmptySlot.addYellow(); // Place a yellow token into the empty slot
       }
     }
@@ -75,10 +99,13 @@ public class MyAgent extends Agent {
    *      the index of the top empty slot in a particular column;
    *      -1 if the column is already full.
    */
-  public int getLowestEmptyIndex(Connect4Column column) {
+  public int getLowestEmptyIndex(Connect4Column column) 
+  {
     int lowestEmptySlot = -1;
-    for  (int i = 0; i < column.getRowCount(); i++) {
-      if (!column.getSlot(i).getIsFilled()) {
+    for  (int i = 0; i < column.getRowCount(); i++) 
+    {
+      if (!column.getSlot(i).getIsFilled()) 
+      {
         lowestEmptySlot = i;
       }
     }
@@ -91,9 +118,11 @@ public class MyAgent extends Agent {
    *
    * @return a random valid move.
    */
-  public int randomMove() {
+  public int randomMove() 
+  {
     int i = random.nextInt(myGame.getColumnCount());
-    while (getLowestEmptyIndex(myGame.getColumn(i)) == -1) {
+    while (getLowestEmptyIndex(myGame.getColumn(i)) == -1) 
+    {
       i = random.nextInt(myGame.getColumnCount());
     }
     return i;
@@ -108,8 +137,28 @@ public class MyAgent extends Agent {
    *
    * @return the column that would allow the agent to win.
    */
-  public int iCanWin() {
-    return 0;
+  public int iCanWin() 
+  {
+      for(int i=0; i<myGame.getColumnCount(); i++) {
+          
+     
+   
+	//copy of the game
+      Connect4Game copyGame = new Connect4Game (myGame);
+      //copy of MyAgent
+      MyAgent copyPlayer = new MyAgent(copyGame, iAmRed);
+      //play on column i
+      copyPlayer.moveOnColumn(i);
+      //check if we won (red)
+      if(copyGame.gameWon()=='R' && iAmRed || (copyGame.gameWon()== 'Y' && !iAmRed)) {
+
+          return i;
+      }
+      
+      
+      }
+	//return -1 if we cant win at any column
+    return -1;
   }
 
   /**
@@ -121,8 +170,42 @@ public class MyAgent extends Agent {
    *
    * @return the column that would allow the opponent to win.
    */
-  public int theyCanWin() {
-    return 0;
+  public int theyCanWin() 
+  {
+      int ColumnNumEnemy=-1;
+      boolean booleanArrayEnemy[];
+      int lowestEmptySlotIndexEnemy;
+      booleanArrayEnemy = new boolean[7];
+      for(int t = 0; t<7; t++) {
+          
+          lowestEmptySlotIndexEnemy = getLowestEmptyIndex(myGame.getColumn(t));
+          if(lowestEmptySlotIndexEnemy==-1) {
+              // gonna print taken if there is a chip in that slot
+             System.out.println("taken"); 
+             //will make one of the array values true if something is there
+             booleanArrayEnemy[t] = true;
+          }
+          //gonna print taken if there is not a chip in that slot
+          else {
+              System.out.println("not taken");
+          //will make one of the array values false if not taken
+          booleanArrayEnemy[t] = false;
+          }
+          
+          if(booleanArrayEnemy[0]==true && booleanArrayEnemy[1]==true && booleanArrayEnemy[2]==true)
+          {
+              //if first 3 are filled then put in the 3rd slot
+             
+              redAgent.moveOnColumn(3);
+              
+              
+          }
+          
+          //lowestEmptySlotIndex returns -1 if slot is take and returns the number of the column if it isn't
+  
+      }
+      
+    return ColumnNumEnemy;
   }
 
   /**
@@ -130,7 +213,9 @@ public class MyAgent extends Agent {
    *
    * @return the agent's name
    */
-  public String getName() {
+  public String getName() 
+  {
     return "My Agent";
   }
+
 }
