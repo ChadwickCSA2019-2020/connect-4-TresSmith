@@ -133,7 +133,7 @@ public void TestICanWinDiagonallyRight() {
   redAgent.moveOnColumn(4);
   yellowAgent.moveOnColumn(3);
   
-  assertEquals(redAgent.ICanWin(), 3);
+  assertEquals(redAgent.iCanWin(), 3);
 }
 
 public void TestICanWinDiagonallyLeft() {
@@ -156,7 +156,7 @@ public void TestICanWinDiagonallyLeft() {
   redAgent.moveOnColumn(4);
   yellowAgent.moveOnColumn(0);
   
-  assertEquals(redAgent.ICanWin(), 3);
+  assertEquals(redAgent.iCanWin(), 3);
 }
   @Test
   public void testTheyCanWin() {
@@ -188,7 +188,7 @@ public void TestICanWinDiagonallyLeft() {
       yellowAgent.moveOnColumn(3);
 
 
-    assertEquals(redAgent.TheyCanWin(), 4);
+    assertEquals(redAgent.theyCanWin(), 4);
 
   }
 
@@ -215,7 +215,7 @@ public void TestICanWinDiagonallyLeft() {
     redAgent.moveOnColumn(4);
     yellowAgent.moveOnColumn(3);
     
-    assertEquals(redAgent.TheyCanWin(), 3);
+    assertEquals(redAgent.theyCanWin(), 3);
   }
   
   // Tests you can win against a Beginner agent as Red
