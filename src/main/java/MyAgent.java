@@ -91,6 +91,27 @@ public class MyAgent extends Agent {
       }
     }
   }
+  public void moveOnColumnEnemy(int columnNumber, Connect4Game copyGame) 
+  {
+    // Find the top empty slot in the column
+    // If the column is full, lowestEmptySlot will be -1
+    int lowestEmptySlotIndex = getLowestEmptyIndex(copyGame.getColumn(columnNumber));
+    // if the column is not full
+    if (lowestEmptySlotIndex > -1) 
+    {
+      // get the slot in this column at this index
+      Connect4Slot lowestEmptySlot = copyGame.getColumn(columnNumber).getSlot(lowestEmptySlotIndex);
+      // If the current agent is the Red player...
+      if (iAmRed) 
+      {
+        lowestEmptySlot.addYellow(); // Place a yellow token into the empty slot
+      } 
+      else 
+      {
+        lowestEmptySlot.addRed(); // Place a red token into the empty slot
+      }
+    }
+  }
 
   /**
    * Returns the index of the top empty slot in a particular column.
@@ -171,28 +192,7 @@ public class MyAgent extends Agent {
    *
    * @return the column that would allow the opponent to win.
    */
-  
-  public void moveOnColumnEnemy(int columnNumber, Connect4Game copyGame) 
-  {
-    // Find the top empty slot in the column
-    // If the column is full, lowestEmptySlot will be -1
-    int lowestEmptySlotIndex = getLowestEmptyIndex(copyGame.getColumn(columnNumber));
-    // if the column is not full
-    if (lowestEmptySlotIndex > -1) 
-    {
-      // get the slot in this column at this index
-      Connect4Slot lowestEmptySlot = copyGame.getColumn(columnNumber).getSlot(lowestEmptySlotIndex);
-      // If the current agent is the Red player...
-      if (iAmRed) 
-      {
-        lowestEmptySlot.addYellow(); // Place a yellow token into the empty slot
-      } 
-      else 
-      {
-        lowestEmptySlot.addRed(); // Place a red token into the empty slot
-      }
-    }
-  }
+ 
   
   public int theyCanWin() 
   {
