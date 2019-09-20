@@ -173,7 +173,24 @@ public void TestICanWinDiagonallyLeft() {
 
   // TODO: Write testTheyCanWinHorizontally
 
+  public void testTheyCanWinHorizontally() {
+    MyAgent redAgent = new MyAgent(game, false);
+    MyAgent yellowAgent = new MyAgent(game, true);
+    game.clearBoard();
 
+      redAgent.moveOnColumn(1);
+      yellowAgent.moveOnColumn(1);
+
+      redAgent.moveOnColumn(2);
+      yellowAgent.moveOnColumn(2);
+
+      redAgent.moveOnColumn(3);
+      yellowAgent.moveOnColumn(3);
+
+
+    assertEquals(redAgent.TheyCanWin(), 4);
+
+  }
 
   
   // TODO: Write testTheyCanWinDiagonally
