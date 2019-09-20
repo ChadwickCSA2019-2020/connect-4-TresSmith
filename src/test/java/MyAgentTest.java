@@ -195,7 +195,28 @@ public void TestICanWinDiagonallyLeft() {
   
   // TODO: Write testTheyCanWinDiagonally
 
-  
+  public void TestTheyCanWinDiagonallyRight() {
+    MyAgent redAgent = new MyAgent(game, false);
+    MyAgent yellowAgent = new MyAgent(game, true);
+    game.clearBoard();
+
+    redAgent.moveOnColumn(0);
+    yellowAgent.moveOnColumn(1);
+    
+    redAgent.moveOnColumn(1);
+    yellowAgent.moveOnColumn(2);
+    
+    redAgent.moveOnColumn(2);
+    yellowAgent.moveOnColumn(3);
+    
+    redAgent.moveOnColumn(2);
+    yellowAgent.moveOnColumn(3);
+    
+    redAgent.moveOnColumn(4);
+    yellowAgent.moveOnColumn(3);
+    
+    assertEquals(redAgent.TheyCanWin(), 3);
+  }
   
   // Tests you can win against a Beginner agent as Red
   @Test
