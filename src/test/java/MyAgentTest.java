@@ -61,7 +61,7 @@ public class MyAgentTest {
 
       redAgent.moveOnColumn(3);
       yellowAgent.moveOnColumn(3);
-    }
+
 
     assertEquals(redAgent.iCanWin(), 4);
 
@@ -107,12 +107,34 @@ public void testICanWinHorizontallyTop4() {
 
   redAgent.moveOnColumn(2);
   yellowAgent.moveOnColumn(5);
-}
+
 assertEquals(redAgent.iCanWin(), 3);
 
 }
   // TODO: Write 2 test cases for testICanWinDiagonally
 
+public void TestICanWinDiagonallyRight() {
+  MyAgent redAgent = new MyAgent(game, true);
+  MyAgent yellowAgent = new MyAgent(game, false);
+  game.clearBoard();
+
+  redAgent.moveOnColumn(0);
+  yellowAgent.moveOnColumn(1);
+  
+  redAgent.moveOnColumn(1);
+  yellowAgent.moveOnColumn(2);
+  
+  redAgent.moveOnColumn(2);
+  yellowAgent.moveOnColumn(3);
+  
+  redAgent.moveOnColumn(2);
+  yellowAgent.moveOnColumn(3);
+  
+  redAgent.moveOnColumn(4);
+  yellowAgent.moveOnColumn(3);
+  
+  assertEquals(redAgent.theyCanWin(), 3);
+}
   @Test
   public void testTheyCanWin() {
     MyAgent redAgent = new MyAgent(game, true);
