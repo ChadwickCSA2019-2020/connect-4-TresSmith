@@ -26,7 +26,7 @@ public class Main {
         // create the yellow player, any subclass of Agent
         Agent yellowPlayer = new BeginnerAgent(game, false);
         // create the game window
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused")//h
         Connect4Frame mainframe = new Connect4Frame(game, redPlayer, yellowPlayer);
     }
 }
