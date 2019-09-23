@@ -45,15 +45,16 @@ public class MyAgent extends Agent {
    *
    */
   public void move() {
-	  //check where to move
+      //check where to move
+
+    moveOnColumn(randomMove());
 
 
-	 moveOnColumn(3);
-//	 if(iCanWin()==) {
+//   if(iCanWin()==) {
 //
 //
 //
-//	 }
+//   }
 
 
 
@@ -90,6 +91,7 @@ public class MyAgent extends Agent {
       }
     }
   }
+  
   public void moveOnColumnEnemy(int columnNumber, Connect4Game copyGame)
   {
     // Find the top empty slot in the column
@@ -164,7 +166,7 @@ public class MyAgent extends Agent {
 
 
 
-	//copy of the game
+    //copy of the game
       Connect4Game copyGame = new Connect4Game (myGame);
       //copy of MyAgent
       MyAgent copyPlayer = new MyAgent(copyGame, iAmRed);
@@ -178,7 +180,7 @@ public class MyAgent extends Agent {
 
 
       }
-	//return -1 if we cant win at any column
+    //return -1 if we can't win at any column
     return -1;
   }
 
@@ -192,44 +194,34 @@ public class MyAgent extends Agent {
    * @return the column that would allow the opponent to win.
    */
 
-  
+
   public int theyCanWin()
   {
-      int ColumnNumEnemy=-1;
-      boolean booleanArrayEnemy[];
-      int lowestEmptySlotIndexEnemy;
-      booleanArrayEnemy = new boolean[7];
-      for(int t = 0; t<7; t++) {
-
-          lowestEmptySlotIndexEnemy = getLowestEmptyIndex(myGame.getColumn(t));
-          if(lowestEmptySlotIndexEnemy==-1) {
-              // gonna print taken if there is a chip in that slot
-             System.out.println("taken");
-             //will make one of the array values true if something is there
-             booleanArrayEnemy[t] = true;
-          }
-          //gonna print taken if there is not a chip in that slot
-          else {
-              System.out.println("not taken");
-          //will make one of the array values false if not taken
-          booleanArrayEnemy[t] = false;
-          }
-
-          if(booleanArrayEnemy[0]==true && booleanArrayEnemy[1]==true && booleanArrayEnemy[2]==true)
-          {
-              //if first 3 are filled then put in the 3rd slot
-
-              redAgent.moveOnColumn(3);
 
 
-          }
+      for(int i=0; i<myGame.getColumnCount(); i++) {
 
-          //lowestEmptySlotIndex returns -1 if slot is take and returns the number of the column if it isn't
+          int columnNumber =i;
 
-      }
 
-    return ColumnNumEnemy;
-  }
+          //copy of the game
+            Connect4Game copyGame = new Connect4Game (myGame);
+            //copy of MyAgent
+            MyAgent yellowPlayerCopyBot = new MyAgent(copyGame, iAmRed);
+            //play on column i
+            yellowPlayerCopyBot.moveOnColumnEnemy(columnNumber, copyGame);
+            //check if we won (red)
+            if(copyGame.gameWon()=='R' && iAmRed || (copyGame.gameWon()== 'Y' && !iAmRed)) {
+
+                return i;
+            }
+
+
+            }
+          //return -1 if they cant win at any column
+          return -1;
+        }
+
 
   /**
    * Returns the name of this agent.
