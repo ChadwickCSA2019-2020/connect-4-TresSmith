@@ -44,22 +44,7 @@ public class MyAgent extends Agent {
    * <p>If an invalid move is made, the game engine will announce it and the game will be ended.</p>
    *
    */
-  public void move() {
-      //check where to move
-
-    moveOnColumn(randomMove());
-
-
-//   if(iCanWin()==) {
-//
-//
-//
-//   }
-
-
-
-  }
-
+  
 
 
 
@@ -160,6 +145,13 @@ public class MyAgent extends Agent {
    *
    * @return the column that would allow the agent to win.
    */
+  
+  
+  /**
+   * H
+   * @return
+   */
+  
   public int iCanWin()
   {
       for(int i=0; i<myGame.getColumnCount(); i++) {
@@ -221,7 +213,45 @@ public class MyAgent extends Agent {
           //return -1 if they cant win at any column
           return -1;
         }
+  
+  public void move() {
+      //check where to move
 
+      for(int i=0; i<1; i++) {
+          
+          
+      }
+
+//    if(theyCanWin()==i){
+//    
+//    
+//}
+      
+      
+      
+      
+    moveOnColumn(randomMove());
+
+
+//   if(iCanWin()==) {
+//
+//
+//
+//   }
+
+
+
+  }
+
+
+  /**
+   * H
+   * @return
+   */
+  
+ 
+  
+  
 
   /**
    * Returns the name of this agent.
