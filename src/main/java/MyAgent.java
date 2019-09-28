@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 /**
  * Describe your basic strategy here.
@@ -13,6 +14,7 @@ public class MyAgent extends Agent {
      * A random number generator to randomly decide where to place a token.
      */
     private Random random;
+    private boolean onFirstMove = true;
 
     /**
      * Constructs a new agent, giving it the game and telling it whether it is Red or Yellow.
@@ -203,21 +205,40 @@ public class MyAgent extends Agent {
             //play on column i
             yellowPlayerCopyBot.moveOnColumn(i);
             //check if we won (red)
-            if(copyGame.gameWon()=='R' && !iAmRed || (copyGame.gameWon()== 'Y' && iAmRed)) {
-
-                return i;
-            }
-
-
-        }
-        //return -1 if they cant win at any column
+            
+            //checked diagonals
+           if(iAmRed) {
+               if(copyGame.gameWon()=='Y') {
+                   return i;
+               }
+               
+           }
+           else {
+               if(copyGame.gameWon()=='R') {
+                   return i;
+               }
+           }
+    }
         return -1;
     }
 
     public void move() {
         //check where to move
+//        boolean isRedFirst = myGame.getRedPlayedFirst();
+//            if(!iAmRed&&isRedFirst&&onFirstMove) {
+//                //we are yellow and red first
+//                moveOnColumn(3);
+//                onFirstMove = false;
+//            }
+//        
+//            else if(iAmRed&&!isRedFirst&&onFirstMove) {
+//            //we are red and yellow first
+//            moveOnColumn(3);
+//            onFirstMove = false;
+//        }
         
-        if (iCanWin()>=0) {
+        
+        if(iCanWin()>=0) {
             System.out.println("I can win at " + iCanWin());
             moveOnColumn(iCanWin());
         }
@@ -227,7 +248,15 @@ public class MyAgent extends Agent {
         }
         
         else {
-           moveOnColumn(randomMove());
+            ArrayList<Integer> dontGo = avoidPlacing();
+            for(int i=0; i<7; i++) {
+                if((dontGo.get(i)!=-1)&&(myGame.boardFull() ==false)) {
+                    moveOnColumn(i);
+                    return;
+           
+                }
+            }
+            moveOnColumn(randomMove());
         }
 
         //   if(iCanWin()==) {
@@ -239,7 +268,29 @@ public class MyAgent extends Agent {
 
 
     }
+    public ArrayList<Integer> avoidPlacing(){
+        ArrayList<Integer> avoid = new ArrayList();
+        Connect4Game copyGame2 = new Connect4Game (myGame);
+        MyAgent enemyBot = new MyAgent(copyGame2, !iAmRed);
+        MyAgent myBot = new MyAgent (copyGame2, iAmRed);
+        for(int i=0; i<myGame.getColumnCount(); i++) {
+            
+            myBot.moveOnColumn(i);
+            enemyBot.moveOnColumn(i);
+            if(myBot.theyCanWin()>=0) {
+                avoid.add(i);
+            }
+            if(myBot.theyCanWin()==-1) {
+                avoid.add(-1);
+            }
+            
+            
+        }
+    
 
+        return avoid;
+        
+    }
 
     /**
      * H

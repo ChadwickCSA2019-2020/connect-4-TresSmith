@@ -38,7 +38,7 @@ public class MyAgentTest {
             yellowAgent.moveOnColumn(2);
         }
 
-        assertEquals(redAgent.theyCanWin(), 0);
+        assertEquals(2, redAgent.theyCanWin());
 
 
     }
@@ -59,7 +59,7 @@ public class MyAgentTest {
             yellowAgent.moveOnColumn(1);
         }
 
-        assertEquals(redAgent.iCanWin(), 2);
+        assertEquals(2, redAgent.iCanWin());
 
     }
 
@@ -277,7 +277,7 @@ public class MyAgentTest {
         }
         System.out.println("You won: " + numberOfWins + " games as Red against Beginner");
         // Test that you win over 90% of your games
-        assertTrue(numberOfWins >= 45);
+        assertTrue(numberOfWins>=45);
     }
 
 
@@ -347,10 +347,12 @@ public class MyAgentTest {
                     yellowAgent.move();
                 }
 
-                System.out.println("You won: " + numberOfWins + " games as Yellow against Random");
-                // Test that you win over 90% of your games
-                assertTrue(numberOfWins >= 45);
+                
             }
+            
+            System.out.println("You won: " + numberOfWins + " games as Yellow against Random");
+            // Test that you win over 90% of your games
+            assertTrue(numberOfWins >= 45);
         }
 
         // BONUS TODO: Write testCases to play against IntermediateAgent  
@@ -370,11 +372,16 @@ public class MyAgentTest {
                     yellowAgent.move();
                 }
 
-                System.out.println("You won: " + numberOfWins + " games as Yellow against Random");
-                // Test that you win over 90% of your games
-                assertTrue(numberOfWins >= 45);
+                
+            }
+            if(game.gameWon()=='Y') {
+                numberOfWins++;
             }
         }
+        
+        System.out.println("You won: " + numberOfWins + " games as Yellow against Intermediate");
+        // Test that you win over 90% of your games
+        assertTrue(numberOfWins >= 45);
     }
 
     // SUPER BONUS TODO: Write testCases to playAgainst AdvancedAgent
@@ -393,11 +400,16 @@ public class MyAgentTest {
                     yellowAgent.move();
                 }
 
-                System.out.println("You won: " + numberOfWins + " games as Yellow against Random");
-                // Test that you win over 90% of your games
-                assertTrue(numberOfWins >= 45);
+                
+            }
+            if(game.gameWon()=='Y') {
+                numberOfWins++;
             }
         }
+        
+        System.out.println("You won: " + numberOfWins + " games as Yellow against Advanced");
+        // Test that you win over 90% of your games
+        assertTrue(numberOfWins >= 45);
     }
 
     // SUPER BONUS TODO: Write testCases to playAgainst BrilliantAgent
@@ -416,14 +428,49 @@ public class MyAgentTest {
                     yellowAgent.move();
                 }
 
-                System.out.println("You won: " + numberOfWins + " games as Yellow against Random");
-                // Test that you win over 90% of your games
-                assertTrue(numberOfWins >= 45);
+               
+            }
+            if(game.gameWon()=='Y') {
+                numberOfWins++;
             }
         }
 
-
+        System.out.println("You won: " + numberOfWins + " games as Yellow against Brilliant");
+        // Test that you win over 90% of your games
+        assertTrue(numberOfWins >= 45);
 
 
     }
+    
+    
+    
+    @Test
+    public void testRedWinningBrilliantAgent() {
+        Agent redAgent = new BrilliantAgent(game, true);
+        Agent yellowAgent = new MyAgent(game, false);
+        int numberOfWins = 0;
+        for (int i = 0; i < 50; i++) {
+            game.clearBoard();
+            while(!game.boardFull() && game.gameWon() == 'N') {
+                redAgent.move();
+                if (game.gameWon() != 'Y') {
+                    yellowAgent.move();
+                }
+
+               
+            }
+            //everytime we win we add more to the win counter
+            if(game.gameWon()=='Y') {
+                numberOfWins++;
+            }
+        }
+
+        System.out.println("You won: " + numberOfWins + " games as Red against Brilliant");
+        // Test that you win over 90% of your games
+        assertTrue(numberOfWins >= 45);
+
+
+    }
+    
+
 }
